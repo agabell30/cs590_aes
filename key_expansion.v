@@ -18,7 +18,7 @@ reg [31:0] temp; //temporary word-sized variable
 reg [7:0] rcon_result;
 reg [31:0] subword_result;
 reg [31:0] rotword_result;
-logic [15:0] i; //counter variable (has to count up to 44 (needs 6 bits)
+reg [15:0] i; //counter variable (has to count up to 44 (needs 6 bits)
 reg [15:0] j;
 always @ (enable, key_in)
 begin
