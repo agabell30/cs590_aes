@@ -18,8 +18,8 @@ output [127:0]out; //16 bytes of output
 
 reg [127:0]state;
 reg [0:2047]sbox;
-reg [15:0]i;
-reg [15:0]j;
+reg [31:0]i;
+reg [31:0]j;
 always @ (enable, in, w)
 begin
 
@@ -46,6 +46,7 @@ state = in;
 //AddRoundKey(state, w[0,3])
 state = AddRoundKey(state, w[127:0]);
 //for round = 1 step 1 to 9
+
 for(i=1;i<=9;i=i+1)
 begin
 //		SubBytes(state)
@@ -79,11 +80,15 @@ function [127:0] AddRoundKey;
 	input [127:0] state;
 	input [127:0] w;
 	reg [127:0] out;
+	reg [31:0] i;
 	begin
-	out[31:0] = state[31:0] ^ w[31:0];
-	out[63:32] = state[63:32] ^ w[63:32];
-	out[95:64] = state[95:64] ^ w[95:64];
-	out[127:96] = state[127:96] ^ w[127:96];
+	for(i=0;i<4;i=i+1)
+	begin
+		out[7+i*32 -: 8] = state[7+i*32 -: 8] ^ w[31+i*32 -: 8];
+		out[15+i*32 -: 8] = state[15+i*32 -: 8] ^ w[23+i*32 -: 8];
+		out[23+i*32 -: 8] = state[23+i*32 -: 8] ^ w[15+i*32 -: 8];
+		out[31+i*32 -: 8] = state[31+i*32 -: 8] ^ w[7+i*32 -: 8];
+	end
 	AddRoundKey = out;
 	end
 endfunction
@@ -119,16 +124,42 @@ endfunction
 function [127:0] MixColumns;
 	input [127:0] state;
 	reg[127:0] out;
-	reg[15:0]i;
+	reg[31:0]i;
 	begin
 	for(i=0;i<4;i=i+1)
 	begin
-	out[7+i*32 -: 8] = (8'h02 & state[7+i*32 -: 8]) ^ (8'h03 & state[15+i*32 -: 8]) ^ state[23+i*32 -: 8] ^ state[31+i*32 -: 8];
-	out[15+i*32 -: 8] = state[7+i*32 -: 8] ^ (8'h02 & state[15+i*32 -: 8]) ^ (8'h03 & state[23+i*32 -: 8]) ^ state[31+i*32 -: 8];
-	out[23+i*32 -: 8] = state[7+i*32 -: 8] ^ state[15+i*32 -: 8] ^ (8'h02 & state[23+i*32 -: 8]) ^ (8'h03 & state[31+i*32 -: 8]);
-	out[31+i*32 -: 8] = (8'h03 & state[7+i*32 -: 8]) ^ state[15+i*32 -: 8] ^ state[23+i*32 -: 8] ^ (8'h02 & state[31+i*32 -: 8]);
+	out[7+i*32 -: 8] = weirdMult(8'h02,state[7+i*32 -: 8]) ^ weirdMult(8'h03,state[15+i*32 -: 8]) ^ state[23+i*32 -: 8] ^ state[31+i*32 -: 8];
+	out[15+i*32 -: 8] = state[7+i*32 -: 8] ^ weirdMult(8'h02,state[15+i*32 -: 8]) ^ weirdMult(8'h03,state[23+i*32 -: 8]) ^ state[31+i*32 -: 8];
+	out[23+i*32 -: 8] = state[7+i*32 -: 8] ^ state[15+i*32 -: 8] ^ weirdMult(8'h02,state[23+i*32 -: 8]) ^ weirdMult(8'h03,state[31+i*32 -: 8]);
+	out[31+i*32 -: 8] = weirdMult(8'h03,state[7+i*32 -: 8]) ^ state[15+i*32 -: 8] ^ state[23+i*32 -: 8] ^ weirdMult(8'h02,state[31+i*32 -: 8]);
 	end
 	MixColumns = out;
+	end
+endfunction
+
+function [7:0] weirdMult; //adapted from https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field
+	input [7:0] a;
+	input [7:0] b;
+	reg[15:0] p;
+	reg[31:0] i;
+	reg carry;
+	begin
+	p = 16'b0000;
+	for(i=0;i<8;i=i+1)
+	begin
+	  if(b[0])
+	  begin
+		p = p ^ a;
+	  end
+	  b = b >> 1;
+	  carry = a[7];
+	  a = a << 1;
+	  if(carry)
+	  begin
+		a = a ^ 8'h1b;
+	  end
+	end
+	weirdMult = p[7:0];
 	end
 endfunction
 
