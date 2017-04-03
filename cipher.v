@@ -2,7 +2,6 @@
 // Design Name : cipher
 // File Name   : cipher.v
 // Function    : Perform AES-128
-// Coder       : Alex Abell
 //-----------------------------------------------------
 module cipher(
 in, //16 bytes of plaintext input
