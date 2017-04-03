@@ -2,7 +2,6 @@
 // Design Name : key_expansion
 // File Name   : key_expansion.v
 // Function    : Expands 128-bit key for AES
-// Coder       : Alex Abell
 //-----------------------------------------------------
 module key_expansion(
 w, //  44 words of output round keys
