@@ -1,8 +1,8 @@
 module scancode_to_ascii(in, out);
-	wire [7:0] in;
-	wire [7:0] out;
+	input wire [7:0] in;
+	output wire [7:0] out;
 	
-	case(in)
+	always case (in)
 		8'h1c:out=8'd65;
 		8'h32:out=8'd66;
 		8'h21:out=8'd67;
