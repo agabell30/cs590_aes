@@ -5,7 +5,7 @@ module PS2_pulse_output(clock, in, pulse); //Pulse is high to read char after ke
 
 	reg prev_in;
 
-	always(@ posedge) begin
+	always @(posedge clock) begin
 		if(prev_in == 8'hF0) begin
 			pulse = 1'b1;
 		end else begin

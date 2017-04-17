@@ -2,7 +2,7 @@ module scancode_to_ascii(in, out);
 	wire [7:0] in;
 	wire [7:0] out;
 	
-	case(in);
+	case(in)
 		8'h1c:out=8'd65;
 		8'h32:out=8'd66;
 		8'h21:out=8'd67;
@@ -39,4 +39,7 @@ module scancode_to_ascii(in, out);
 		8'h3D:out=8'd55;
 		8'h3E:out=8'd56;
 		8'h46:out=8'd57;
+		default: out=out;
 	endcase 
+	
+endmodule 
