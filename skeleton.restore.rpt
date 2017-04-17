@@ -1,5 +1,5 @@
 Restore Archived Project report for skeleton
-Mon Apr 17 14:32:20 2017
+Mon Apr 17 02:56:00 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Standard Edition
 
 
@@ -37,7 +37,7 @@ agreement for further details.
 +-------------------------------------------------------------------------+
 ; Restore Archived Project Summary                                        ;
 +---------------------------------+---------------------------------------+
-; Restore Archived Project Status ; Successful - Mon Apr 17 14:32:20 2017 ;
+; Restore Archived Project Status ; Successful - Mon Apr 17 02:56:00 2017 ;
 ; Revision Name                   ; skeleton                              ;
 ; Top-level Entity Name           ; skeleton                              ;
 ; Family                          ; Cyclone IV E                          ;
@@ -47,12 +47,12 @@ agreement for further details.
 +-----------------------------------+
 ; Restore Archived Project Messages ;
 +-----------------------------------+
-Info: Successfully restored 'C:/Users/Student/Downloads/lab7_skeleton.qar' into the 'C:/Users/Student/Desktop/AES_proj/' directory
+Info: Successfully restored 'C:/Users/Student/Desktop/skeleton.qar' into the 'C:/Users/Student/Desktop/AES/' directory
 Info: Generated report 'skeleton.restore.rpt'
 Info (23030): Evaluation of Tcl script c:/altera/16.0/quartus/common/tcl/apps/qpm/qar.tcl was successful
 Info: Quartus Prime Shell was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 554 megabytes
-    Info: Processing ended: Mon Apr 17 14:32:20 2017
+    Info: Peak virtual memory: 556 megabytes
+    Info: Processing ended: Mon Apr 17 02:56:00 2017
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:01
 
@@ -66,29 +66,15 @@ Info: Quartus Prime Shell was successful. 0 errors, 0 warnings
 ; Altera_UP_PS2_Command_Out.v      ;
 ; Altera_UP_PS2_Data_In.v          ;
 ; Hexadecimal_To_Seven_Segment.v   ;
+; PS2Debounce.v                    ;
 ; PS2_Controller.v                 ;
 ; PS2_Interface.v                  ;
 ; Reset_Delay.v                    ;
-; VGA_Audio_PLL.v                  ;
+; ShiftRegister.v                  ;
 ; assignment_defaults.qdf          ;
-; dmem.cmp                         ;
-; dmem.mif                         ;
-; dmem.qip                         ;
-; dmem.v                           ;
-; dmem_inst.v                      ;
-; imem.cmp                         ;
-; imem.mif                         ;
-; imem.qip                         ;
-; imem.v                           ;
-; imem_inst.v                      ;
-; img_bars.mif                     ;
-; img_data.v                       ;
-; img_data_logo.mif                ;
-; img_index.v                      ;
-; index.mif                        ;
-; index_logo.mif                   ;
-; lab7_img_data.mif                ;
-; lab7_img_index.mif               ;
+; cipher.v                         ;
+; invcipher.v                      ;
+; key_expansion.v                  ;
 ; lcd.sv                           ;
 ; pll.bsf                          ;
 ; pll.cmp                          ;
@@ -100,8 +86,7 @@ Info: Quartus Prime Shell was successful. 0 errors, 0 warnings
 ; skeleton.qsf                     ;
 ; skeleton.v                       ;
 ; skeleton_assignment_defaults.qdf ;
-; vga_controller.v                 ;
-; video_sync_generator.v           ;
+; splitter.v                       ;
 +----------------------------------+
 
 
